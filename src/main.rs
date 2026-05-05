@@ -9,7 +9,7 @@ fn App() -> Element {
     rsx! {
         main {
             h1 { "Dioxus CI smoke test" }
-            p { "Preview workflow exercised successfully after deploy checkout fix." }
+            p { "Preview workflow exercised successfully with root 404 fallback." }
         }
     }
 }
