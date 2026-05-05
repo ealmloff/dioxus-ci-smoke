@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading...</title>
+    <script
+        data-base-path="dioxus-ci-smoke"
+        data-pr-preview-prefix="pr-preview"
+    >
+        (function () {
+            const script = document.currentScript;
+            const basePath = script.getAttribute('data-base-path') || '';
+            const prPrefix = script.getAttribute('data-pr-preview-prefix') || '';
+            const parts = window.location.pathname.split('/').filter(Boolean);
+            let realUrl;
+            if (
+                prPrefix &&
+                parts.length >= 3 &&
+                parts[1] === prPrefix &&
+                /^pr-\d+$/.test(parts[2])
+            ) {
+                realUrl = '/' + parts.slice(0, 3).join('/') + '/';
+            } else if (basePath) {
+                realUrl = '/' + basePath.replace(/^\/+|\/+$/g, '') + '/';
+            } else {
+                realUrl = '/';
+            }
+            fetch(realUrl)
+                .then(response => response.text())
+                .then(html => {
+                    document.documentElement.innerHTML = html;
+                    document.querySelectorAll('script').forEach(oldScript => {
+                        const newScript = document.createElement('script');
+                        for (const { name, value } of oldScript.attributes) {
+                            newScript.setAttribute(name, value);
+                        }
+                        newScript.textContent = oldScript.textContent;
+                        oldScript.replaceWith(newScript);
+                    });
+                });
+        })();
+    </script>
+</head>
+<body></body>
+</html>
