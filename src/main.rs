@@ -9,7 +9,7 @@ fn App() -> Element {
     rsx! {
         main {
             h1 { "Dioxus CI smoke test" }
-            p { "Preview workflow exercised successfully with root 404 fallback." }
+            p { "Preview workflow exercised successfully without workflow-level apt or Firefox setup." }
         }
     }
 }
