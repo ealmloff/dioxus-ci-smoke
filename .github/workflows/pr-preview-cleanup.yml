@@ -1,0 +1,12 @@
+name: PR Preview Cleanup
+
+on:
+  pull_request:
+    types: [closed]
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    uses: ealmloff/dioxus-ci/.github/workflows/clean-up-pr-preview.yml@main
